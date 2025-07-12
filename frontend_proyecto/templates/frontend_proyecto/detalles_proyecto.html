@@ -1,0 +1,23 @@
+{% extends 'frontend_proyecto/base.html' %}
+
+{% block title %}{{ proyecto.titulo }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>{{ proyecto.titulo }}</h1>
+        <hr>
+        <p><strong>Tecnología:</strong> <span class="badge bg-secondary">{{ proyecto.tecnologia }}</span></p>
+        <p>{{ proyecto.descripcion }}</p>
+        <!-- Más adelante cambiaremos "#" por la URL real -->
+        {% comment %} <a href="#" class="btn btn-info">Volver al Portafolio</a> {% endcomment %}
+         <!-- Cambia esta línea: -->
+        <a href="{% url 'frontend_proyecto:lista_proyectos' %}" class="btn btn-info">Volver al Portafolio</a>
+    </div>
+    <div class="col-md-4">
+        {% if proyecto.subir_imagen %}
+            <img src="{{ proyecto.subir_imagen.url }}" class="img-fluid rounded" alt="{{ proyecto.titulo }}">
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

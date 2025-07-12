@@ -1,0 +1,32 @@
+{% extends 'frontend_proyecto/base.html' %}
+
+{% block title %}Ver Proyectos{% endblock %}
+
+{% block content %}
+<h1>Nuestro Portafolio de Proyectos</h1>
+<hr>
+<div class="row">
+    <!-- Aquí iteraremos sobre los proyectos desde la base de datos -->
+    {% for proyecto in proyectos %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            {% if proyecto.subir_imagen %}
+                <img src="{{ proyecto.subir_imagen.url }}" class="card-img-top" alt="{{ proyecto.titulo }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ proyecto.titulo }}</h5>
+                <p class="card-text">{{ proyecto.descripcion|truncatewords:15 }}</p>
+                <!-- Más adelante cambiaremos "#" por la URL real -->
+                {% comment %} <a href="#" class="btn btn-primary">Ver Detalles</a> {% endcomment %}
+                <!-- Cambia esta línea: -->
+                <a href="{% url 'frontend_proyecto:detalles_proyecto' proyecto.id %}" class="btn btn-primary">Ver Detalles</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col">
+        <p>Aún no hay proyectos para mostrar.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
